@@ -1,0 +1,11 @@
+{
+  "name": "Dayone Command Centre",
+  "short_name": "Dayone",
+  "icons": [
+    { "src": "/logo.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "theme_color": "#FF7A00",
+  "background_color": "#FDF6EE",
+  "display": "standalone"
+}

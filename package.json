@@ -1,0 +1,17 @@
+{
+  "name": "dayone-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dayone admin dashboard: live leads from Google Sheets plus SEO / AEO / GEO / performance telemetry for day1tech.com and dayoneventurepartners.com",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --watch --env-file-if-exists=.env server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.8.1"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "public",
+  "functions": {
+    "api/audit.js": {
+      "maxDuration": 60
+    },
+    "api/leads.js": {
+      "maxDuration": 30
+    },
+    "api/cron-audit.js": {
+      "maxDuration": 60
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron-audit",
+      "schedule": "0 5 * * *"
+    }
+  ]
+}

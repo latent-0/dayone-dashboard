@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dayone Command Centre</title>
+  <meta name="description" content="Live leads and search / AI visibility for Day One Technologies and Dayone Venture Partners.">
+  <meta name="theme-color" content="#FF7A00">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/logo.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="side" id="side">
+      <a class="brand" href="#/overview" aria-label="Dayone home">
+        <img src="/logo-mark.svg" alt="" width="34" height="34">
+        <span><b>Dayone</b><small>Command Centre</small></span>
+      </a>
+      <nav id="nav" aria-label="Primary">
+        <a href="#/overview" data-v="overview"><i data-i="grid"></i>Overview</a>
+        <a href="#/leads" data-v="leads"><i data-i="inbox"></i>Leads<em id="navCount" hidden></em></a>
+        <a href="#/sites" data-v="sites"><i data-i="globe"></i>Websites &amp; AI visibility</a>
+        <a href="#/funnel" data-v="funnel"><i data-i="funnel"></i>Funnel &amp; ICP</a>
+        <a href="#/insights" data-v="insights"><i data-i="spark"></i>Insights</a>
+      </nav>
+      <div class="side-foot">
+        <div class="sources" id="sources"></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div>
+          <h1 id="title">Overview</h1>
+          <p id="subtitle" class="muted"></p>
+        </div>
+        <div class="controls">
+          <div class="seg" id="siteSeg" role="tablist" aria-label="Filter by company"></div>
+          <button class="btn ghost" id="refresh" title="Re-fetch the Google Sheets now"><i data-i="refresh"></i><span>Sync</span></button>
+          <span class="live" id="live"><i></i><span>Connecting…</span></span>
+        </div>
+      </header>
+      <div id="view" class="view" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <div class="drawer-bg" id="drawerBg" hidden></div>
+  <aside class="drawer" id="drawer" hidden aria-label="Lead details"></aside>
+  <div class="toast" id="toast" hidden></div>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
