@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { getLeads } from './lib/leads.js';
 import { getAudits, auditAge } from './lib/audit.js';
+import { getGrowth, saveGrowth, HttpError } from './lib/growth.js';
 import { SITES, AUDIT_EVERY_MS, PSI_API_KEY } from './lib/config.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), 'public');
@@ -50,6 +51,18 @@ const server = createServer(async (req, res) => {
 
     if (url.pathname === '/api/leads') return json(req, res, await getLeads(url.searchParams.has('refresh')));
     if (url.pathname === '/api/audit') return json(req, res, await getAudits(url.searchParams.has('refresh')));
+    if (url.pathname === '/api/growth') {
+      if (req.method === 'GET') return json(req, res, await getGrowth());
+      if (req.method === 'POST') {
+        if (!/application\/json/i.test(req.headers['content-type'] || '')) return json(req, res, { error: 'Send JSON' }, 415);
+        let raw = '';
+        for await (const chunk of req) { raw += chunk; if (raw.length > 50_000) return json(req, res, { error: 'Body too large' }, 413); }
+        let body;
+        try { body = JSON.parse(raw); } catch { return json(req, res, { error: 'Invalid JSON' }, 400); }
+        try { return json(req, res, await saveGrowth(body)); } catch (e) { return json(req, res, { error: e.message }, e instanceof HttpError ? e.status : 500); }
+      }
+      return json(req, res, { error: 'Method not allowed' }, 405);
+    }
     if (url.pathname === '/api/config') {
       return json(req, res, {
         sites: Object.fromEntries(Object.values(SITES).map((s) => [s.key, { key: s.key, name: s.name, short: s.short, domain: s.domain, url: s.url, sheetUrl: `https://docs.google.com/spreadsheets/d/${s.sheetId}/edit` }])),

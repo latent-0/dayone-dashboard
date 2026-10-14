@@ -4,6 +4,7 @@ Admin dashboard for **Day One Technologies** (day1tech.com) and **Dayone Venture
 
 - **Live leads**: every tab of both Google Sheets is fetched server-side (cached 30 s, UI polls every 60 s). Rows are normalised, scored 0–100, and test submissions / cold solicitations are auto-flagged and excluded from the numbers (toggle "Show test & spam" to see them).
 - **Search & AI visibility**: both sites are audited live for SEO, AEO, GEO, performance and security, with ranked fixes. Audits re-run every 6 h and score history is stored in `data/history.json`.
+- **Growth tracker**: results and plan for each company. Inbound funnel and region mix are read live from the sheets; outbound, posts and briefings are logged weekly (they have no automatic source); monthly targets and a 90-day checklist are saved (Vercel Blob in production, `data/` locally). Add a `Status` column (New, Contacted, Briefing, Diagnostic, Mandate, Lost) to a lead sheet to see pipeline stage.
 - **Insights**: lead-quality funnel, demand breakdowns, sheet data-quality issues, playbook.
 
 ## Run

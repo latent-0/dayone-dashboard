@@ -1,5 +1,6 @@
 // Dayone Command Centre: vanilla JS, no build step.
 import { FUNNELS, GEO } from './funnel.js';
+import { viewGrowth, bindGrowth, loadGrowth } from './growth.js';
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const DAY = 864e5;
@@ -11,6 +12,7 @@ const ICONS = {
   spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/>',
   refresh: '<path d="M20 11a8 8 0 10-2.3 5.7M20 4v7h-7"/>',
   funnel: '<path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
 };
 const icon = (n) => `<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
 const hydrateIcons = (root = document) => root.querySelectorAll('i[data-i]').forEach((el) => { el.innerHTML = icon(el.dataset.i); });
@@ -297,6 +299,7 @@ function openLead(id) {
   $('#closeDrawer').onclick = closeDrawer;
   const cm = $('#copyMail'); if (cm) cm.onclick = () => { navigator.clipboard?.writeText(l.email); toast('Email copied'); };
 }
+const growthCtx = { S, esc, siteName, real, fmtMoney, scoreColor, api: (p) => api(p), render: () => render(), toast: (m) => toast(m) };
 const closeDrawer = () => { $('#drawer').hidden = true; $('#drawerBg').hidden = true; };
 
 function exportCsv() {
@@ -499,11 +502,14 @@ const TITLES = {
   overview: ['Overview', () => `Live leads and search / AI visibility for ${S.site === 'all' ? 'both companies' : siteName(S.site)}`],
   leads: ['Leads', () => `${filteredLeads().length} shown · synced from Google Sheets in real time`],
   sites: ['Websites & AI visibility', () => 'SEO, AEO, GEO, performance and security, audited live'],
+  growth: ['Growth tracker', () => 'Results, targets and the 90-day plan for ' + (S.sub === 'tech' ? siteName('tech') : S.sub === 'ventures' ? siteName('ventures') : (S.site === 'tech' ? siteName('tech') : siteName('ventures')))],
   funnel: ['Funnel & ICP', () => 'Who we sell to, where, and the reach → capture → convert plan'],
   insights: ['Insights', () => 'Quality, demand and what to do next'],
 };
 function render() {
   if (!S.cfg) return;
+  const ae = document.activeElement;
+  if (S.view === 'growth' && ae && /^(INPUT|SELECT|TEXTAREA)$/.test(ae.tagName) && ae.closest('.growth-form') && render.fromPoll) return;
   const [t, sub] = TITLES[S.view];
   $('#title').textContent = t; $('#subtitle').textContent = sub();
   document.title = `${t} · Dayone Command Centre`;
@@ -511,7 +517,7 @@ function render() {
   const y = window.scrollY;
   const focusId = document.activeElement?.id;
   const sel = focusId === 'q' ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
-  v.innerHTML = ({ overview: viewOverview, leads: viewLeads, sites: viewSites, funnel: viewFunnel, insights: viewInsights })[S.view]();
+  v.innerHTML = ({ overview: viewOverview, leads: viewLeads, sites: viewSites, funnel: viewFunnel, growth: () => viewGrowth(growthCtx), insights: viewInsights })[S.view]();
   hydrateIcons(v);
   if (focusId === 'q') { const q = $('#q'); q.focus(); if (sel) q.setSelectionRange(...sel); }
   window.scrollTo(0, y);
@@ -552,8 +558,10 @@ window.addEventListener('hashchange', route);
   hydrateIcons();
   S.cfg = await api('/api/config');
   route();
+  bindGrowth(growthCtx);
+  loadGrowth(growthCtx).then(() => render());
   loadLeads({ quiet: true });
   loadAudit();
-  setInterval(() => loadLeads(), 60_000);          // leads are live: poll every minute
+  setInterval(() => { render.fromPoll = true; loadLeads().finally(() => { render.fromPoll = false; }); }, 60_000);          // leads are live: poll every minute
   setInterval(() => loadAudit(), 15 * 60_000);      // audits every 15 minutes (server caches)
 })();

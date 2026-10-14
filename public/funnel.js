@@ -92,7 +92,7 @@ export const FUNNELS = {
           ['Outcome cards.', 'The published representative outcomes (30% gross margin improvement, 2.5x pipeline, 40% shorter delivery cycle), each linked to the case it came from.'],
           ['Operator POV posts.', 'What breaks between a board’s AI mandate and a shipped platform, written by the people who ship it.'],
         ],
-        channels: 'LinkedIn, search and AI answer engines (the site must be pre-rendered so crawlers can read it), Clutch reviews, PE operating-partner communities, partner referrals through the partnerships page.',
+        channels: 'LinkedIn, search and AI answer engines (keep the site pre-rendered so crawlers can read it), Clutch reviews, PE operating-partner communities, partner referrals through the partnerships page.',
         measure: 'Non-brand impressions, visits to /operating-partner, case-study views per 100 visits, and how often AI assistants cite Day One in a weekly ten-prompt check. One metric to beat: visits to /operating-partner.',
       },
       {

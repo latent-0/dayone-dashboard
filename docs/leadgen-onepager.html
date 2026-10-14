@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Dayone Venture Partners · Lead gen funnel, US + Europe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+@page { size: 297mm 210mm; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font: 400 8.6px/1.4 'Poppins', system-ui, sans-serif; color: #17120e; }
+.page { width: 297mm; height: 210mm; padding: 8mm 10mm 6mm; background: #fffaf3; overflow: hidden; display: flex; flex-direction: column; gap: 6px; }
+.top { display: flex; justify-content: space-between; align-items: center; }
+.kick { font-size: 7.6px; letter-spacing: .16em; text-transform: uppercase; color: #b8650d; font-weight: 600; }
+.logo { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+.logo i { font-style: normal; font-size: 7px; letter-spacing: .26em; color: #b8650d; }
+h1 { margin: 0; font-size: 25px; line-height: 1.1; font-weight: 500; letter-spacing: -.02em; }
+h1 em { font-style: normal; color: #b8650d; }
+.intro { margin: 0; max-width: 235mm; color: #4a3f36; font-size: 9px; }
+.lab { display: block; font-size: 7px; letter-spacing: .16em; text-transform: uppercase; color: #b8650d; font-weight: 600; margin-bottom: 3px; }
+.row { display: grid; gap: 6px; }
+.r3 { grid-template-columns: 1.15fr 1fr 1.05fr; }
+.box { background: #fff; border: 1px solid #eee2d3; border-radius: 8px; padding: 7px 9px; }
+.box p { margin: 0 0 3px; color: #4a3f36; }
+.box b { color: #17120e; font-weight: 600; }
+.reg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.reg div { background: #fff8ec; border-radius: 6px; padding: 5px 7px; }
+.reg h4 { margin: 0 0 2px; font-size: 9.5px; font-weight: 600; }
+.ladder { display: grid; gap: 2px; counter-reset: s; }
+.ladder div { padding-left: 14px; position: relative; color: #4a3f36; }
+.ladder div::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg,#ffc400,#ff4a00); color: #fff; font-size: 6.5px; font-weight: 700; display: grid; place-items: center; line-height: 10px; text-align: center; }
+.math { width: 100%; border-collapse: collapse; }
+.math td { padding: 1.5px 0; border-bottom: 1px dashed #eadbc7; color: #4a3f36; }
+.math td:last-child { text-align: right; font-weight: 600; color: #17120e; }
+.math tr:last-child td { border: 0; color: #9a4a10; }
+.note { font-size: 6.8px; color: #86786b; margin-top: 3px; }
+.cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; flex: 1; min-height: 0; }
+.col { background: #fff; border: 1px solid #eee2d3; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+.ch { padding: 8px 10px; color: #fff; background: #1d1712; }
+.ch.acc { background: #9a4a10; }
+.ch span { font-size: 7px; letter-spacing: .16em; text-transform: uppercase; color: #ffc27a; font-weight: 600; }
+.ch h3 { margin: 1px 0 2px; font-size: 13px; font-weight: 500; }
+.ch p { margin: 0; font-size: 8px; color: rgba(255,255,255,.78); }
+.cb { padding: 6px 10px; border-top: 1px solid #eee2d3; }
+.cb:first-of-type { border-top: 0; }
+.cb ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 2.5px; }
+.cb li { padding-left: 9px; position: relative; color: #4a3f36; }
+.cb li::before { content: '–'; position: absolute; left: 0; color: #b8650d; }
+.cb li b { color: #17120e; font-weight: 600; }
+.cb p { margin: 0; color: #4a3f36; }
+.kpi { margin-top: auto; padding: 6px 10px; background: #f6ecde; }
+.kpi p { margin: 0; color: #4a3f36; }
+.bot { display: grid; grid-template-columns: 1fr 1.55fr 1fr; gap: 6px; }
+.fix { background: #1d1712; color: #fff; border-radius: 8px; padding: 7px 10px; }
+.fix .lab { color: #ffc27a; }
+.fix ul { margin: 0; padding-left: 10px; display: grid; gap: 2px; color: rgba(255,255,255,.86); }
+.road { display: grid; grid-template-columns: repeat(3, 1fr); background: #fff; border: 1px solid #eee2d3; border-radius: 8px; overflow: hidden; }
+.road div { padding: 7px 9px; border-left: 1px solid #eee2d3; }
+.road div:first-child { border-left: 0; }
+.road h5 { margin: 0 0 2px; font-size: 8.6px; font-weight: 600; color: #9a4a10; }
+.road ul { margin: 0; padding-left: 9px; color: #4a3f36; display: grid; gap: 1.5px; }
+.week { background: #fff; border: 1px solid #eee2d3; border-radius: 8px; padding: 7px 9px; }
+.week div { display: grid; grid-template-columns: 22px 1fr; gap: 4px; padding: 1.5px 0; color: #4a3f36; }
+.week span { color: #b8650d; font-weight: 600; text-transform: uppercase; font-size: 7px; letter-spacing: .1em; padding-top: 1px; }
+.foot { font-size: 6.8px; color: #86786b; display: flex; justify-content: space-between; }
+</style></head>
+<body>
+<div class="page">
+  <div class="top"><span class="kick">Dayone Venture Partners · Lead gen funnel · United States + Europe</span>
+    <span class="logo"><svg width="17" height="17" viewBox="0 0 180 180"><defs><linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF9B00"/><stop offset="1" stop-color="#FF4A00"/></linearGradient><linearGradient id="d" x1=".15" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="#FFC400"/><stop offset=".5" stop-color="#FF8A00"/><stop offset="1" stop-color="#FF4A00"/></linearGradient></defs><rect x="59" y="18" width="8" height="122" rx="4" fill="url(#b)"/><path d="M73 43A48.5 48.5 0 0 1 73 140Z" fill="url(#d)"/></svg>Dayone <i>Ventures</i></span></div>
+  <h1>Sponsors buy proof, so lead with <em>a Value Map.</em> Reach, capture, convert.</h1>
+  <p class="intro">Goal: a steady flow of qualified sponsor and CEO briefings for Dayone’s operating-partner model. One repeatable system: named-account outbound, LinkedIn-led content, and a single capture path that ends in a scoped diagnostic. Every stage shares one voice and one next step.</p>
+
+  <div class="row r3">
+    <div class="box"><span class="lab">Who and where</span>
+      <p><b>Buyers:</b> sponsors (partner, principal, operating partner), portfolio CEO / CFO, and founders of lower-middle-market software, about $5M–$40M ARR (€5M–€40M).</p>
+      <div class="reg">
+        <div><h4>United States · core (suggested ~60%)</h4>New York, Boston, Chicago, Texas, SF Bay, Atlanta, Philadelphia / NJ. Reach 8–10am local, Tue–Thu.</div>
+        <div><h4>Europe · expand (suggested ~40%)</h4>UK &amp; Ireland, DACH, Benelux, Nordics, France. B2B outreach on legitimate interest, one-click opt-out.</div>
+      </div>
+      <p class="note">Excluded: India and Nigeria. Post window that reaches both: 13:00–15:00 CET (7–9am ET).</p></div>
+    <div class="box"><span class="lab">The offer ladder: one next step at a time</span>
+      <div class="ladder"><div><b>Value Map sample</b>: redacted one-page diagnostic, org + role + country to download</div><div><b>Portfolio scorecard</b>: 10 questions, returns a leak score</div><div><b>Sponsor briefing</b>: 30 min under NDA on one live company</div><div><b>Scoped diagnostic</b>: six dimensions, fixed window</div><div><b>Operating mandate</b>: Diagnose, Operate, Compound, Realize</div></div></div>
+    <div class="box"><span class="lab">Planning math · assumptions, replace after the 4-week baseline</span>
+      <table class="math"><tr><td>New named prospects / month (50 a week)</td><td>200</td></tr><tr><td>Positive replies at ~3%</td><td>~6</td></tr><tr><td>…that book a briefing (~70%)</td><td>~4</td></tr><tr><td>Inbound captures from LinkedIn + site</td><td>~6</td></tr><tr><td>…that book a briefing (~40%)</td><td>~2–3</td></tr><tr><td>Briefings / month by day 90</td><td>~6–7</td></tr><tr><td>Scoped diagnostics at ~1 in 3</td><td>~2 / month</td></tr></table>
+      <p class="note">Planning assumptions, not benchmarks or promises. Replace every rate with your own measured baseline.</p></div>
+  </div>
+
+  <div class="cols">
+    <div class="col"><div class="ch"><span>TOFU · Reach</span><h3>Where is the value leaking?</h3><p>Be the first useful thing a sponsor reads about operating partners.</p></div>
+      <div class="cb"><span class="lab">Assets</span><ul>
+        <li><b>Partner-led LinkedIn.</b> 3 posts a week from 3 partner profiles plus the company page: six dimensions, framework, operator POV.</li>
+        <li><b>Named outbound.</b> 20 accounts a week, 2–3 contacts each, 5 emails + 3 LinkedIn touches over 21 days.</li>
+        <li><b>Answer pages.</b> “Operating partner vs consultant”, “PE value creation for software”, so AI assistants can cite Dayone.</li>
+        <li><b>Podcasts and communities.</b> One PE or SaaS podcast a month; 10 target-account comments a day.</li></ul></div>
+      <div class="cb"><span class="lab">Channels</span><p>LinkedIn, email, search and answer engines, sponsor and mid-market events in both regions, introductions from portfolio executives.</p></div>
+      <div class="kpi"><span class="lab">Measure</span><p>ICP profile views and followers, positive-reply rate, non-brand impressions, AI citation check (10 prompts weekly). One metric to beat: positive replies per week.</p></div></div>
+    <div class="col"><div class="ch"><span>MOFU · Capture</span><h3>One page, three doors</h3><p>Turn a reader into a named, qualified contact who raised their hand.</p></div>
+      <div class="cb"><span class="lab">Assets</span><ul>
+        <li><b>Operating-partner landing page.</b> Value Map sample, scorecard, book a briefing. Org, role and country on every form.</li>
+        <li><b>Comment keyword “MAP”.</b> Auto-DM with the sample on LinkedIn posts.</li>
+        <li><b>Monthly Operating Library note.</b> One lesson, to the captured list and as a LinkedIn newsletter.</li>
+        <li><b>4-email nurture.</b> Days 0, 3, 7, 14: one case, one framework, one outcome, one invitation.</li></ul></div>
+      <div class="cb"><span class="lab">Channels</span><p>Link in first comment (not the post body), bio link, outbound email, newsletter, podcast show notes.</p></div>
+      <div class="kpi"><span class="lab">Measure</span><p>Captures per 100 visits, ICP share (in region, in segment), scorecard completions, briefings booked. Live in this dashboard from the form sheet.</p></div></div>
+    <div class="col"><div class="ch acc"><span>BOFU · Convert</span><h3>Diagnostic before capital</h3><p>A first scoped diagnostic inside the quarter, then a mandate across the hold.</p></div>
+      <div class="cb"><span class="lab">Assets</span><ul>
+        <li><b>Sponsor briefing.</b> Walk one live company through the four phases, under NDA, with a one-page next step.</li>
+        <li><b>Scoped diagnostic.</b> One company, six dimensions, a Value Map in a fixed window. “No capital moves ahead of the diagnosis.”</li>
+        <li><b>Proof stack.</b> Framework, the captive technology group and the 100+ platforms it has delivered, sponsor references with consent.</li>
+        <li><b>Mandate proposal.</b> Scope, fees, and the numbers Dayone is accountable for.</li></ul></div>
+      <div class="cb"><span class="lab">Expansion loop</span><p>After a diagnostic, propose a second portfolio company and ask for two introductions.</p></div>
+      <div class="kpi"><span class="lab">Measure</span><p>Capture to briefing, briefing to diagnostic, diagnostic to mandate, cycle length in days, declared pipeline.</p></div></div>
+  </div>
+
+  <div class="bot">
+    <div class="fix"><span class="lab">Fix before any of it</span><ul>
+      <li>Add robots.txt, sitemap.xml and llms.txt (all 404 today).</li>
+      <li>Build the operating-partner landing page; today the only exit is a contact form.</li>
+      <li>Add a Country field and spam protection (most submissions are noise).</li>
+      <li>Change declared service area from US-only to US + Europe; add FAQ and sameAs schema.</li>
+      <li>Start mailbox warm-up on day 1; first cold send on day 22.</li></ul></div>
+    <div class="road">
+      <div><h5>Days 1–30 · Foundation</h5><ul><li>Landing page, Value Map sample, scorecard live</li><li>Site basics fixed; mail domains warming</li><li>Hand-built list: ~90 US + ~60 Europe accounts</li><li>Partner profiles rewritten; posting 3× a week</li></ul></div>
+      <div><h5>Days 31–60 · Launch</h5><ul><li>Outbound starts: 20 accounts a week</li><li>Newsletter issue 1; first podcast pitch</li><li>Day 35: baseline read-out, set targets</li><li>First sponsor briefings</li></ul></div>
+      <div><h5>Days 61–90 · Scale</h5><ul><li>Double down on the best channel and region</li><li>First scoped diagnostics</li><li>Publish a reference or before-and-after</li><li>Tighten ICP using the lead data</li></ul></div>
+    </div>
+    <div class="week"><span class="lab">Weekly rhythm</span>
+      <div><span>Mon</span>Value Leak post (US + EU window)</div><div><span>Tue</span>Outbound batch, 8–10am local</div><div><span>Wed</span>Framework post; keyword DMs</div><div><span>Thu</span>Outbound batch; 10 comments a day</div><div><span>Fri</span>Scorecard / briefing post; newsletter</div><div><span>Sun</span>Review ICP fit in the dashboard</div></div>
+  </div>
+  <div class="foot"><span>Dayone · Targets are set after a four week baseline. Rates above are planning assumptions, not guarantees.</span><span>dayoneventurepartners.com</span></div>
+</div>
+</body></html>
