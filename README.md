@@ -5,6 +5,7 @@ Admin dashboard for **Day One Technologies** (day1tech.com) and **Dayone Venture
 - **Live leads**: every tab of both Google Sheets is fetched server-side (cached 30 s, UI polls every 60 s). Rows are normalised, scored 0–100, and test submissions / cold solicitations are auto-flagged and excluded from the numbers (toggle "Show test & spam" to see them).
 - **Search & AI visibility**: both sites are audited live for SEO, AEO, GEO, performance and security, with ranked fixes. Audits re-run every 6 h and score history is stored in `data/history.json`.
 - **Growth tracker**: results and plan for each company. Inbound funnel and region mix are read live from the sheets; outbound, posts and briefings are logged weekly (they have no automatic source); monthly targets and a 90-day checklist are saved (Vercel Blob in production, `data/` locally). Add a `Status` column (New, Contacted, Briefing, Diagnostic, Mandate, Lost) to a lead sheet to see pipeline stage.
+- **Email campaigns**: outreach sent from a Gmail / Workspace mailbox (e.g. Kim's): emails and follow-ups sent, reply rate, positive / not-interested replies, bounces, auto-replies, follow-ups due and time to reply, per campaign and per recipient with an "Open in Gmail" link. A read-only Apps Script in the mailbox (`apps-script/campaigns.gs`, setup steps at the top) publishes the stats; set `CAMPAIGN_FEEDS` to its URL. Campaigns are Gmail labels under `Campaign/`, otherwise subject lines. Opens and clicks are not available from Gmail.
 - **Insights**: lead-quality funnel, demand breakdowns, sheet data-quality issues, playbook.
 
 ## Run
@@ -19,6 +20,7 @@ npm start            # http://localhost:3000   (Node 20+, zero dependencies)
 | `PORT` | Port (default 3000) |
 | `DASH_PASSWORD` | If set, the whole dashboard requires this password (HTTP Basic). **Set this before deploying.** |
 | `DASH_USERNAME` | Optional: also require this username (case-insensitive). |
+| `CAMPAIGN_FEEDS` | Apps Script feed URL(s) for the Email campaigns view, each with `?key=`; comma-separated for several mailboxes. Treat as a secret. |
 | `PSI_API_KEY` | Free Google PageSpeed API key; adds Lighthouse scores + LCP/CLS/TBT to the Websites view. |
 
 ## Configure

@@ -1,6 +1,7 @@
 // Dayone Command Centre: vanilla JS, no build step.
 import { FUNNELS, GEO } from './funnel.js';
 import { viewGrowth, bindGrowth, loadGrowth } from './growth.js';
+import { viewCampaigns, bindCampaigns, loadCampaigns, campaignSubtitle } from './campaigns.js';
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const DAY = 864e5;
@@ -13,6 +14,7 @@ const ICONS = {
   refresh: '<path d="M20 11a8 8 0 10-2.3 5.7M20 4v7h-7"/>',
   funnel: '<path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/>',
   chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  mail: '<path d="M3 6h18v12H3zM3 7l9 6 9-6"/>',
 };
 const icon = (n) => `<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
 const hydrateIcons = (root = document) => root.querySelectorAll('i[data-i]').forEach((el) => { el.innerHTML = icon(el.dataset.i); });
@@ -115,6 +117,7 @@ function renderChrome() {
   const n = scoped(S.leads).filter((l) => real(l) && inRange(l, 7)).length;
   const nc = $('#navCount'); nc.hidden = !n; nc.textContent = n;
   const sites = S.cfg?.sites || {};
+  $('#siteSeg').hidden = S.view === 'campaigns';   // campaigns are filtered by mailbox instead
   $('#siteSeg').innerHTML = [['all', 'Both'], ...Object.values(sites).map((s) => [s.key, s.short])]
     .map(([k, label]) => `<button class="${S.site === k ? 'on' : ''}" data-site="${k}" role="tab">${esc(label)}</button>`).join('');
   $('#sources').innerHTML = `<h4>Live sources</h4>` + S.sources.filter((s) => s.rows || !s.ok).map((s) => `<div class="src ${s.ok ? '' : 'bad'}" title="${esc(s.error || '')}"><i></i><span>${esc(siteName(s.site))} · ${esc(s.tab)}</span><span>${s.ok ? s.rows : '!'}</span></div>`).join('');
@@ -300,6 +303,7 @@ function openLead(id) {
   const cm = $('#copyMail'); if (cm) cm.onclick = () => { navigator.clipboard?.writeText(l.email); toast('Email copied'); };
 }
 const growthCtx = { S, esc, siteName, real, fmtMoney, scoreColor, api: (p) => api(p), render: () => render(), toast: (m) => toast(m) };
+const campCtx = { esc, ago, api: (p) => api(p), render: () => render() };
 const closeDrawer = () => { $('#drawer').hidden = true; $('#drawerBg').hidden = true; };
 
 function exportCsv() {
@@ -503,6 +507,7 @@ const TITLES = {
   leads: ['Leads', () => `${filteredLeads().length} shown · synced from Google Sheets in real time`],
   sites: ['Websites & AI visibility', () => 'SEO, AEO, GEO, performance and security, audited live'],
   growth: ['Growth tracker', () => 'Results, targets and the 90-day plan for ' + (S.sub === 'tech' ? siteName('tech') : S.sub === 'ventures' ? siteName('ventures') : (S.site === 'tech' ? siteName('tech') : siteName('ventures')))],
+  campaigns: ['Email campaigns', () => campaignSubtitle()],
   funnel: ['Funnel & ICP', () => 'Who we sell to, where, and the reach → capture → convert plan'],
   insights: ['Insights', () => 'Quality, demand and what to do next'],
 };
@@ -516,10 +521,11 @@ function render() {
   const v = $('#view');
   const y = window.scrollY;
   const focusId = document.activeElement?.id;
-  const sel = focusId === 'q' ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
-  v.innerHTML = ({ overview: viewOverview, leads: viewLeads, sites: viewSites, funnel: viewFunnel, growth: () => viewGrowth(growthCtx), insights: viewInsights })[S.view]();
+  const keepFocus = focusId === 'q' || focusId === 'campQ';
+  const sel = keepFocus ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
+  v.innerHTML = ({ overview: viewOverview, leads: viewLeads, sites: viewSites, funnel: viewFunnel, growth: () => viewGrowth(growthCtx), campaigns: () => viewCampaigns(campCtx), insights: viewInsights })[S.view]();
   hydrateIcons(v);
-  if (focusId === 'q') { const q = $('#q'); q.focus(); if (sel) q.setSelectionRange(...sel); }
+  if (keepFocus) { const q = document.getElementById(focusId); if (q) { q.focus(); if (sel) q.setSelectionRange(...sel); } }
   window.scrollTo(0, y);
 }
 function route() {
@@ -562,6 +568,9 @@ window.addEventListener('hashchange', route);
   loadGrowth(growthCtx).then(() => render());
   loadLeads({ quiet: true });
   loadAudit();
+  bindCampaigns(campCtx);
+  loadCampaigns(campCtx);
+  setInterval(() => loadCampaigns(campCtx), 5 * 60_000);  // campaign feed refreshes every 15 min at source
   setInterval(() => { render.fromPoll = true; loadLeads().finally(() => { render.fromPoll = false; }); }, 60_000);          // leads are live: poll every minute
   setInterval(() => loadAudit(), 15 * 60_000);      // audits every 15 minutes (server caches)
 })();

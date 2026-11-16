@@ -7,6 +7,7 @@ import { gzipSync } from 'node:zlib';
 import { getLeads } from './lib/leads.js';
 import { getAudits, auditAge } from './lib/audit.js';
 import { getGrowth, saveGrowth, HttpError } from './lib/growth.js';
+import { getCampaigns } from './lib/campaigns.js';
 import { SITES, AUDIT_EVERY_MS, PSI_API_KEY } from './lib/config.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), 'public');
@@ -50,6 +51,7 @@ const server = createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
 
     if (url.pathname === '/api/leads') return json(req, res, await getLeads(url.searchParams.has('refresh')));
+    if (url.pathname === '/api/campaigns') return json(req, res, await getCampaigns(url.searchParams.has('refresh')));
     if (url.pathname === '/api/audit') return json(req, res, await getAudits(url.searchParams.has('refresh')));
     if (url.pathname === '/api/growth') {
       if (req.method === 'GET') return json(req, res, await getGrowth());

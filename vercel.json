@@ -9,6 +9,9 @@
     "api/leads.js": {
       "maxDuration": 30
     },
+    "api/campaigns.js": {
+      "maxDuration": 30
+    },
     "api/cron-audit.js": {
       "maxDuration": 60
     }
